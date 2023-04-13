@@ -1,4 +1,4 @@
-import Constants
+import Util
 import Processor
 import Ram
 import HDD
@@ -28,17 +28,23 @@ class RealMachine:
                 print(f'Unrecognized input {commands}')
 
     def exec_program(self, name):
+        self.PageMech.get_blocks()
+
         found_head = False
         found_program = False
-        with open(Constants.disk_path, 'r') as f:
+        i = 0
+        with open(Util.disk_path, 'r') as f:
             for line in f:
-                if not found_head and line.strip() == 'HEAD':
+                line = line.strip()
+                if not found_head and line == 'HEAD':
                     found_head = True
-                elif found_head and line.strip() == name:
+                elif found_head and line == name:
                     found_program = True
-                elif found_program and line.strip() != 'FOOT':
-                    pass    # PARSE PROGRAM
-                elif found_program and line.strip() == 'FOOT':
+                elif found_program and line != 'FOOT':
+                    print(line)
+                    # set supervisor 4 bytes
+                    # i += 1
+                elif found_program and line == 'FOOT':
                     break
                 else:
                     found_head = False

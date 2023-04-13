@@ -1,8 +1,8 @@
 import os
-import Constants
+import Util
 
 
 class HDD:
     def __init__(self):
-        if not os.path.exists(Constants.disk_path):
-            open(Constants.disk_path, 'w').close()
+        if not os.path.exists(Util.disk_path):
+            open(Util.disk_path, 'w').close()
